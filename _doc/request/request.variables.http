@@ -1,0 +1,47 @@
+@token=eyJhbGci
+###
+# @name alluser
+@alluserHeader={{alluser.response.headers.Content-Type}}
+# @res_body_total={{totalusers.response.body.total}}
+
+GET https://jsonplaceholder.typicode.com/users
+Authorization: Bearer {{token}}
+
+###
+POST {{$dotenv API_URL}}/users
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    // Global Variables
+    "request_id": "{{$guid}}",
+    "timestamp": "{{$timestamp}}",
+    "timestamp-s": "{{$timestamp -1740224464 s}}",
+    "timestamp-5h": "{{$timestamp -5 h}}",
+    "randomInt": "{{$randomInt 1 999}}",
+    "datetime": "{{$datetime iso8601}}",
+    "custom_date": "{{$datetime 'YYYY-MM-DD'}}",
+    "local_custom_date": "{{$localDatetime 'YYYY-MM-DD-HH:mm:ss'}}",
+    // Request Variables
+    "name": "{{alluserHeader}}",
+    // .env Variables
+    "API_URL": "{{$dotenv API_URL}}",
+    // System Variables
+    "USERNAME": "{{$processEnv USERNAME}}",
+    "PORT": "{{$processEnv PORT}}",
+    "OS": "{{$processEnv OS}}",
+    "PASSWORD": "{{$processEnv PASSWORD}}",
+    "TOKEN": "{{$processEnv TOKEN}}"
+}
+###
+
+
+### Prompt Variables
+# @prompt username
+POST {{$dotenv API_URL}}/users
+Content-Type: application/json
+
+{
+    //Prompt Variables
+    "username": "{{username}}"
+}
